@@ -11,7 +11,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 vim.opt.termguicolors = true
-
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 
 local lazy_config = require "configs.lazy"
 
@@ -26,9 +29,6 @@ require("lazy").setup({
 
   { import = "plugins" },
 }, lazy_config)
-
-
-
 
 require("transparent").setup({
   -- table: default groups
@@ -53,9 +53,6 @@ require("transparent").setup({
   -- Also the user event "TransparentClear" will be triggered
   on_clear = function() end,
 })
-
-
-
 
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
