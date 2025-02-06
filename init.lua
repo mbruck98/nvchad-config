@@ -52,6 +52,47 @@ require("transparent").setup({
   -- function: code to be executed after highlight groups are cleared
   -- Also the user event "TransparentClear" will be triggered
   on_clear = function() end,
+
+local dap = require('dap')
+
+dap.adapters.cppdbg =
+{
+    name = 'cppdbg',
+    type = 'executable',
+    command = vim.fn.stdpath('data') .. '/mason/bin/OpenDebugAD7',
+}
+dap.configurations.cpp =
+{
+    {
+        name = "Launch",
+        type = "cppdbg",
+        request = "launch",
+        args = function()
+            local args_string = vim.fn.input("Executable arguments: ")
+            return vim.split(args_string, " ")
+        end,
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        --args = {},
+        runInTerminal = true,
+        setupCommands =
+        {
+            {
+                text = '-enable-pretty-printing',
+                description =  'enable pretty printing',
+                ignoreFailures = false
+            },
+        },
+    },
+}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.h = dap.configurations.cpp
+dap.configurations.hpp = dap.configurations.cpp
+
+require("dapui").setup()
 })
 
 -- load theme
