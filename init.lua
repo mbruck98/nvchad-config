@@ -93,6 +93,25 @@ dap.configurations.h = dap.configurations.cpp
 dap.configurations.hpp = dap.configurations.cpp
 
 require("dapui").setup()
+
+require("hover").setup(
+{
+    init = function()
+	    require("hover.providers.lsp")
+    end,
+	preview_opts =
+    {
+	    border = "single",
+    },
+	-- Whether the contents of a currently open hover window should be moved
+	-- to a :h preview-window when pressing the hover keymap.
+    preview_window = false,
+    title = false,
+    mouse_providers =
+    {
+	    "LSP",
+    },
+	mouse_delay = 500,
 })
 
 -- load theme

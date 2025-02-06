@@ -56,6 +56,8 @@ return {
             "python","cmake", "bash",
             "awk", "doxygen"
    		},
+    {
+	    "lewis6991/hover.nvim",
     },
   },
 }
