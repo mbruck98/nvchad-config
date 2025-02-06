@@ -5,53 +5,67 @@ vim.g.mapleader = " "
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.uv.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
+    local repo = "https://github.com/folke/lazy.nvim.git"
+    vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
 
 vim.opt.rtp:prepend(lazypath)
-vim.opt.termguicolors = true
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
+
+vim.api.nvim_create_autocmd("CursorHold",
+{
+    callback = function()
+		vim.cmd [[ echon '']]
+	end
+})
+
+vim.api.nvim_create_user_command('DapUiClose',
+    function()
+        require('dapui').close()
+    end,{}
+)
 
 local lazy_config = require "configs.lazy"
 
 -- load plugins
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-  },
-
-  { import = "plugins" },
+require("lazy").setup(
+{
+    {
+        "NvChad/NvChad",
+        lazy = false,
+        branch = "v2.5",
+        import = "nvchad.plugins",
+    },
+    {
+        import = "plugins"
+    },
 }, lazy_config)
 
-require("transparent").setup({
-  -- table: default groups
-  groups = {
-    'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
-    'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
-    'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
-    'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
-    'EndOfBuffer',
-  },
-  -- table: additional groups that should be cleared
-  extra_groups = {
-    "NormalFloat",
-    "Normal",
-    "NvimTreeNormal",
-    "NvimTreeNormalFloat",
- 	  "NvimTreeNormalNC",
-  },
-  -- table: groups you don't want to clear
-  exclude_groups = {},
-  -- function: code to be executed after highlight groups are cleared
-  -- Also the user event "TransparentClear" will be triggered
-  on_clear = function() end,
+require("transparent").setup(
+{
+    -- table: default groups
+    groups =
+    {
+        'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+        'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+        'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+        'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
+        'EndOfBuffer',
+    },
+    -- table: additional groups that should be cleared
+    extra_groups =
+    {
+        "NormalFloat",
+        "Normal",
+        "NvimTreeNormal",
+        "NvimTreeNormalFloat",
+     	"NvimTreeNormalNC",
+    },
+    -- table: groups you don't want to clear
+    exclude_groups = {},
+    -- function: code to be executed after highlight groups are cleared
+    -- Also the user event "TransparentClear" will be triggered
+    on_clear = function() end,
+})
 
 local dap = require('dap')
 
@@ -124,3 +138,4 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+

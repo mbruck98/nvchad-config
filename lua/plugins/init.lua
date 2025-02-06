@@ -1,23 +1,39 @@
-return {
-  {
-    "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
-  },
+return
+{
+    {
+        "stevearc/conform.nvim",
+        -- event = 'BufWritePre', -- uncomment for format on save
+        opts = require "configs.conform",
+    },
 
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "configs.lspconfig"
-    end,
-  },
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            require "configs.lspconfig"
+        end,
+    },
+
+    {
+        "xiyaowong/transparent.nvim"
+    },
+
     {
         "nvim-neotest/nvim-nio"
     },
 
-  {
-    "xiyaowong/transparent.nvim"
-  },
+    {
+  	    "nvim-treesitter/nvim-treesitter",
+      	opts =
+        {
+  		    ensure_installed =
+            {
+                "vim", "lua", "vimdoc",
+                "html", "css", "cpp", "c",
+                "python","cmake", "bash",
+                "awk", "doxygen"
+            },
+        },
+    },
 
     {
         "mfussenegger/nvim-dap",
@@ -47,17 +63,7 @@ return {
         end
     },
 
-  {
-  	"nvim-treesitter/nvim-treesitter",
-  	opts = {
-  		ensure_installed = {
-            "vim", "lua", "vimdoc",
-            "html", "css", "cpp", "c",
-            "python","cmake", "bash",
-            "awk", "doxygen"
-   		},
     {
 	    "lewis6991/hover.nvim",
     },
-  },
 }

@@ -1,7 +1,5 @@
 require "nvchad.mappings"
 
--- add yours here
-
 local map = vim.keymap.set
 
 map('n', '<Leader>dr', function() require('dap').continue() end, { desc = "Debug: Start or continue the debugger" })
@@ -12,7 +10,6 @@ map('n', '<Leader>db', function() require('dap').toggle_breakpoint() end, { desc
 map('n', '<Leader>dB', function() require('dap').set_breakpoint() end, { desc = "Debug: Set breakpoint" })
 map({'n', 'v'}, '<Leader>dh', function() require('dap.ui.widgets').hover() end, { desc= "Debug: Hover" })
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
-
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map("i", "<C-x>", "<ESC>")
 map("n", "<MouseMove>", require("hover").hover_mouse, { desc = "hover.nvim (mouse)" })
