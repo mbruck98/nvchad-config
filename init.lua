@@ -40,7 +40,6 @@ require("lazy").setup(
     },
 }, lazy_config)
 
-
 require("transparent").setup(
 {
     -- table: default groups
@@ -91,7 +90,6 @@ dap.configurations.cpp =
         end,
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
-        --args = {},
         runInTerminal = true,
         setupCommands =
         {
