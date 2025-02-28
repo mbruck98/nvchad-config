@@ -40,6 +40,19 @@ require("lazy").setup(
     },
 }, lazy_config)
 
+require("nvim-tree").setup(
+{
+    sync_root_with_cwd = true,
+    git =
+    {
+        ignore = false,
+    },
+    renderer =
+    {
+            root_folder_label = false,
+    },
+})
+
 require("transparent").setup(
 {
     -- table: default groups
